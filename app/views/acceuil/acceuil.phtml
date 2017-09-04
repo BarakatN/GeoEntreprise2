@@ -1,0 +1,157 @@
+<?php 
+use GeoEntreprise\Models\Domaine;
+use GeoEntreprise\Models\Entreprise;
+use GeoEntreprise\Models\Departement;
+      ?>
+<html>
+<head>
+<style>
+/* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+		#div-top {
+			height: 15%;
+			width: 100%;
+			background-color: #78AB46;
+			font-weight: bolder;
+			font-size: 24pt;
+			color: White;
+		}
+		
+		#div-center {
+			height: 85%;
+			width: 100%;
+		}
+		
+	#map {
+			height: 508px;
+			width: 1068px;
+			display: inline-block;
+			float:left;
+			width:60%; 
+			height:80% ; 
+			margin-top: 10px ;
+			margin-left:40px ;  
+		    border:1px gray solid;
+            border-radius:10px;
+            -webkit-box-shadow:0 0 6px gray inset; 
+			
+		}
+		
+
+		#divRoute{
+		   float:right;
+		   width:30%;
+		   height:73% ; 
+		   margin-top: 10px ;
+		   overflow-y: auto;
+	border:1px gray solid;
+border-radius:10px;
+-webkit-box-shadow:0 0 6px gray inset;
+    margin-right:30px ; 
+ 
+		 
+		}
+
+		/* Optional: Makes the sample page fill the window. */
+		html, body {
+			height: 100%;
+			margin: 0;
+			padding: 0;
+		}
+</style>
+<script src="..\..\..\..\GeoEntreprise\public\js\jquery.min.js"></script>
+<script src="..\..\..\..\GeoEntreprise\public\js\test.js"></script>
+
+</head>
+<body>
+
+
+
+	<label class="col-sm-2 control-label">Domaine</label>
+   
+  
+
+    <div class="col-sm-10"  >
+          <?php
+        $domaines=Domaine::find();  ?>       
+          <select id="domaine_id_domaine" class="s"> 
+            <option value="all">Tous les domaines</option>
+<?php foreach($domaines as $d){ ?>
+                <option value="<?php echo $d->id_domaine;?>"><?php echo  $d->nom;     ?></option> 
+<?php } ?>
+    </select>
+       
+    </div>
+    	<label class="col-sm-2 control-label">Entreprise</label>
+   
+  
+
+    <div class="col-sm-10"  >
+          <?php
+        $entreprises=Entreprise::find();  ?>       
+          <select id="id_entreprise" class="s" > 
+            <option value="all">Tous les entreprises</option>
+<?php foreach($entreprises as $e){ ?>
+                <option value="<?php echo $e->id_entreprise;?>"><?php echo  $e->nom;     ?></option> 
+<?php } ?>
+    </select>
+       
+    </div>
+    <label class="col-sm-2 control-label">Département</label>
+   
+  
+
+    <div class="col-sm-10"  >
+          <?php
+          $tab=array();
+          
+        $departements=Departement::find(); 
+             foreach($departements as $e)
+        $tab[]=$e->libelle ; 
+      $t=array_unique($tab) ;
+             
+         ?>       
+          <select id="libelle" class="s"> 
+            <option value="all">Tous les departements</option>
+<?php foreach($t as $d){ 
+        
+          
+	?>
+                <option value="<?php echo $d;?>"><?php echo  $d;     ?></option> 
+<?php } ?>
+    </select>
+       
+    </div>
+    
+	
+	<div id="div-center">
+		<div id="menu">
+
+		</div>
+		<div id="map"></div>
+
+	
+		
+	</div>
+	
+	
+	<script async defer
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDkeI-kIm4S1_WR2xFykRqK6XE7HIL_ew&callback=initMap">
+		
+	</script>
+	<div id="test"></div>
+
+	<p>
+
+        <?php echo $this->tag->linkTo(["acceuil/ConnectDB", "Connecte to DB"]);
+    
+
+   //$json = file_get_contents('http://localhost/GeoEntreprise/acceuil/ConnectDB');
+//echo $json ; 
+
+        ?>
+
+    </p>
+    
+</body>
+</html>

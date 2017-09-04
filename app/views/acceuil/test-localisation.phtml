@@ -1,0 +1,185 @@
+<?php 
+use GeoEntreprise\Models\Etablissement ;
+use GeoEntreprise\Models\Domaine ;
+ use GeoEntreprise\Models\DomaineHasEtablissement  ;
+  ?>
+<script >
+	
+
+$(document).ready(function(){
+
+
+	var directionsService ;
+
+	var directionsDisplay;
+
+	
+	function init(){
+	// var d='<?php echo  $_SESSION['domaine']; ?>';
+    //document.getElementById('test').innerHTML=d ; 
+
+		map = new google.maps.Map(document.getElementById('map'), {
+			zoom: 16,
+			center: new google.maps.LatLng(31.675905,-8.0473),
+		});
+		var infoWindowo = new google.maps.InfoWindow({map: map});
+		
+
+		  directionsService = new google.maps.DirectionsService();
+		    directionsDisplay = new google.maps.DirectionsRenderer();
+		
+		  /*connexion de la map + le panneau de l'itinéraire*/
+		    directionsDisplay.setMap(map);
+		  geocoder = new google.maps.Geocoder();
+		
+
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+             pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+             
+             
+            mapos = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+ 
+            infoWindowo.setPosition(pos);
+            infoWindowo.setContent('My location');
+            //map.setCenter(pos);
+          }, function() {
+            handleLocationError(true, infoWindowo, map.getCenter());
+          });
+        } else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindowo, map.getCenter());
+        }
+		
+        // add markers (calling function getData())
+        var latLng = new google.maps.LatLng(31.669837,-8.042872);
+
+     //Les info affichées en cliquent sur le mark
+     var infoWindow = new google.maps.InfoWindow;
+					infowincontent = document.createElement('div');
+					var strong = document.createElement('strong');
+					strong.textContent ="Pharmacie Hay Sinai";
+					infowincontent.appendChild(strong);
+					infowincontent.appendChild(document.createElement('br'));
+
+					var text = document.createElement('text');
+					text.textContent = "Marrakech Maroc"  ; 
+					infowincontent.appendChild(text);
+
+		  	 marker = new google.maps.Marker({
+						position:latLng,
+						map: map,
+						//label:'P',
+						//icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+						
+					});
+					 marker.addListener('click', function() {
+			                infoWindow.setContent(infowincontent);
+			                infoWindow.open(map, this);
+			              });
+
+                      getMarkers() ; 
+
+              
+	}
+	
+	window.initMap = function() {
+		
+		init() ; 
+	}
+	 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+	        infoWindow.setPosition(pos);
+	        infoWindow.setContent(browserHasGeolocation ?
+	                              'Error: The Geolocation service failed.' :
+	                              'Error: Your browser doesn\'t support geolocation.');
+	      }
+
+
+	     
+
+         function getMarkers(){
+        var r='<?php echo  $_SESSION['data']; ?>';
+      response=JSON.parse(r) ;
+     //document.getElementById('test').innerHTML= t[0].nom ;
+
+   			var infoWindow = new google.maps.InfoWindow;
+			var infowincontent = new Array();
+			var marker = new Array();
+			
+				for (var i = 0; i < response.length; i++) {
+					var lat = response[i].altitude;
+					var lng = response[i].longitude;
+					var name =response[i].nom;
+					//var adress=response[i].adresse;
+					var latLng = new google.maps.LatLng(lat,lng);
+					var icon="P";
+					//Les info affichées en cliquent sur le mark
+					infowincontent[i] = document.createElement('div');
+					var strong = document.createElement('strong');
+					strong.textContent =name;
+					infowincontent[i].appendChild(strong);
+					infowincontent[i].appendChild(document.createElement('br'));
+/*
+					var text = document.createElement('text');
+					text.textContent = adress
+					infowincontent[i].appendChild(text);
+*/
+					 marker[i] = new google.maps.Marker({
+						position:latLng,
+						map: map,
+						//label:'P',
+						icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+						idMap:i
+					});
+					 marker[i].addListener('click', function() {
+			                infoWindow.setContent(infowincontent[this.idMap]);
+			                infoWindow.open(map, this);
+			              });
+				}
+
+
+
+
+                                }
+
+    
+
+$( "#s" ).click(function() {
+  var i=$('#s').val()  ; 
+   <?php
+
+   //$k="<script  type='text/javascript'> document.write(i) ; </script>" ; 
+    $k= $this->request->getPost("domaine_id_domaine");
+      $domaine_etabs = DomaineHasEtablissement::find(["domaine_id_domaine"=>2]);
+ $n=$k."---" ;
+ $temp = array();
+        foreach ($domaine_etabs as $d) {
+     
+        $e=Etablissement::findFirst($d->etablissement_id_etab);
+    
+   $temp[]=$e ;
+     $n.=$e->nom." --- " ;
+
+
+}
+      
+    //  $_SESSION['domaine'] = $n;
+      // $_SESSION['data'] = json_encode($temp);
+
+ ?>
+  var dd='<?php echo  $n; ?>';
+    document.getElementById('test').innerHTML=dd ; 
+});
+
+
+
+        });
+                
+   
+
+
+</script>

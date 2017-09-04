@@ -1,0 +1,27 @@
+<html>
+<head>
+  <title>Connection to local DataBase</title>
+</head>
+<body>
+
+<?php
+
+//require("ConnectDB.php") ; 
+require_once(realpath($_SERVER["DOCUMENT_ROOT"]) .'\GeoEntreprise\app\views\acceuil\ConnectDB.php');
+echo "connected " ; 
+$sql = "SELECT nom,adresse , siren  FROM entreprise";
+$result = mysqli_query($conn, $sql);
+
+if (mysqli_num_rows($result) > 0) {
+    // output data of each row
+    while($row = mysqli_fetch_assoc($result)) {
+        echo "nom: ".$row["nom"]." adresse: ".$row["adresse"]." siren: ".$row["siren"]."<br>";
+    }
+} else {
+    echo "0 results";
+}
+
+?>
+
+</body>
+</html>

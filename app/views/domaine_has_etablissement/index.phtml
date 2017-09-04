@@ -1,0 +1,58 @@
+<?php
+/**
+ * @var \Phalcon\Mvc\View\Engine\Php $this
+ */
+?>
+<?php use GeoEntreprise\Models\Domaine;
+      use GeoEntreprise\Models\Etablissement;?>
+<div class="page-header">
+    <h1>
+        Search domaine_has_etablissement
+    </h1>
+    <p>
+        <?php echo $this->tag->linkTo(["domaine_has_etablissement/new", "Create domaine_has_etablissement"]) ?>
+    </p>
+</div>
+
+<?php echo $this->getContent() ?>
+
+<?php
+    echo $this->tag->form(
+        [
+            "domaine_has_etablissement/search",
+            "autocomplete" => "off",
+            "class" => "form-horizontal"
+        ]
+    );
+?>
+
+<div class="form-group">
+    <label for="fieldDomaineIdDomaine" class="col-sm-2 control-label">Domaine</label>
+    <div class="col-sm-10">
+        <?php
+        $domaines=Domaine::find();
+
+        echo $this->tag->select(['domaine_id_domaine',$domaines,'using'=>['id_domaine','nom']]);
+       ?>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="fieldEtablissementIdEtab" class="col-sm-2 control-label">Etablissement</label>
+    <div class="col-sm-10">
+            <?php
+        $etablissements=Etablissement::find();
+
+        echo $this->tag->select(['etablissement_id_etab',$etablissements,'using'=>['id_etab','nom']]);
+       ?>
+    </div>
+</div>
+
+
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+        <?php echo $this->tag->submitButton(["Search", "class" => "btn btn-default"]) ?>
+    </div>
+</div>
+
+<?php echo $this->tag->endForm(); ?>

@@ -1,0 +1,74 @@
+<?php
+/**
+ * @var \Phalcon\Mvc\View\Engine\Php $this
+ */
+use GeoEntreprise\Models\Contact;
+use GeoEntreprise\Models\Etablissement;
+?>
+
+<div class="row">
+    <nav>
+        <ul class="pager">
+            <li class="previous"><?php echo $this->tag->linkTo(["departement", "Go Back"]) ?></li>
+        </ul>
+    </nav>
+</div>
+
+<div class="page-header">
+    <h1>
+        Create departement
+    </h1>
+</div>
+
+<?php echo $this->getContent(); ?>
+
+<?php
+    echo $this->tag->form(
+        [
+            "departement/create",
+            "autocomplete" => "off",
+            "class" => "form-horizontal"
+        ]
+    );
+?>
+
+<div class="form-group">
+    <label for="fieldNumDept" class="col-sm-2 control-label">Num Of Dept</label>
+    <div class="col-sm-10">
+        <?php echo $this->tag->textField(["num_dept", "type" => "number", "class" => "form-control", "id" => "fieldNumDept"]) ?>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="fieldLibelle" class="col-sm-2 control-label">Libelle</label>
+    <div class="col-sm-10">
+        <?php echo $this->tag->textField(["libelle", "size" => 30, "class" => "form-control", "id" => "fieldLibelle"]) ?>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="fieldEtablissementIdEtab" class="col-sm-2 control-label">Etablissement</label>
+    <?php
+        $etablissements=Etablissement::find();
+
+        echo $this->tag->select(['etablissement_id_etab',$etablissements,'using'=>['id_etab','nom']]);
+       ?>
+</div>
+
+<div class="form-group">
+    <label for="fieldContactIdContact" class="col-sm-2 control-label">Contact</label>
+   <?php
+        $contacts=Contact::find();
+
+        echo $this->tag->select(['contact_id_contact',$contacts,'using'=>['id_contact','nom']]);
+       ?>
+</div>
+
+
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+        <?php echo $this->tag->submitButton(["Save", "class" => "btn btn-default"]) ?>
+    </div>
+</div>
+
+<?php echo $this->tag->endForm(); ?>
