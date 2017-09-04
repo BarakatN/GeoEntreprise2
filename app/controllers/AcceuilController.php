@@ -179,7 +179,7 @@ public function search_depart_entrepriseAction()
              "etab" => $d->id_etab ])
     ->execute();
    
-    if(count(departs)>0)
+    if(count($departs)>0)
        $temp[]=$d ; 
 
 
@@ -211,7 +211,7 @@ $temp = array();
              "etab" => $d->etablissement_id_etab ])
     ->execute();
    
-    if(count(departs)>0)
+    if(count($departs)>0)
       {
 
           $e=Etablissement::findFirst($d->etablissement_id_etab);
@@ -257,7 +257,7 @@ $temp = array();
              "etab" => $d->id_etab ])
     ->execute();
    
-    if(count(departs)>0)
+    if(count($departs)>0)
 
       $temp[]=$d ;
     
