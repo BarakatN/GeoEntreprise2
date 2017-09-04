@@ -4,6 +4,7 @@ namespace GeoEntreprise\Controllers;
 use GeoEntreprise\Models\Etablissement ;
 use GeoEntreprise\Models\Departement ;
 use GeoEntreprise\Models\Domaine ;
+use GeoEntreprise\Models\Entreprise ;
 use Phalcon\Mvc\Model\Query;
  use GeoEntreprise\Models\DomaineHasEtablissement  ;
 class AcceuilController extends ControllerBase
@@ -12,7 +13,7 @@ class AcceuilController extends ControllerBase
     public function indexAction()
     {
           
-    	
+      
 
         $this->view->pick('acceuil/acceuil');
     }
@@ -34,7 +35,7 @@ class AcceuilController extends ControllerBase
    public function ConnectDBAction()
     {
 
-    	$temp = array();
+      $temp = array();
         $etablissements=Etablissement::find();
         foreach ($etablissements as $a) {
     $temp[]=$a   ; 
@@ -275,6 +276,29 @@ $temp = array();
      $this->view->disable();
    echo json_encode($temp);
 }  
+
+
+
+
+    public function getInfoAction()
+    {
+       $id = $_POST["id"];
+        $temp= array() ;
+            foreach ($id as $t) {
+              
+
+                  $entreprise=Entreprise::findFirstByid_entreprise($t) ; 
+
+    
+                    $temp[]=$entreprise ;
+            }
+    
+
+      $this->view->disable();
+   echo json_encode($temp);
+
+
+    }
 
 
 
