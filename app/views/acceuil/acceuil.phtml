@@ -22,9 +22,9 @@ use GeoEntreprise\Models\Departement;
 			width: 100%;
 		}
 		
-	#map {
-			height: 508px;
-			width: 1068px;
+	#map{
+			height: 340;
+			width: 600px;
 			display: inline-block;
 			float:left;
 			width:60%; 
@@ -36,6 +36,34 @@ use GeoEntreprise\Models\Departement;
             -webkit-box-shadow:0 0 6px gray inset; 
 			
 		}
+
+   #b{
+            width:600px; 
+			height:250px ; 
+              margin-top: 10px ;
+			margin-left:40px ;  
+		    border:1px gray solid;
+            border-radius:10px;
+   }
+
+   #myModal{
+
+           width:800px; 
+			height:500px ;
+             margin-right: 100px ; 
+               
+   }
+
+        #map2{
+           width:500px; 
+			height:250px ; 
+      margin-top: 10px ;
+			margin-left:60px ;  
+		    border:1px gray solid;
+            border-radius:10px;
+   }
+
+
 		
 
 		#divRoute{
@@ -51,7 +79,17 @@ border-radius:10px;
  
 		 
 		}
-
+table {
+border: medium solid grey;
+  margin-left:120px  ; 
+  border-radius:5px;
+  margin-top:15px ;
+width: 50%;
+}
+td, th {
+border: thin solid #6495ed;
+width: 50%;
+}
 		/* Optional: Makes the sample page fill the window. */
 		html, body {
 			height: 100%;
@@ -66,7 +104,7 @@ border-radius:10px;
 <body>
 
 
-
+   <div>
 	<label class="col-sm-2 control-label">Domaine</label>
    
   
@@ -82,6 +120,9 @@ border-radius:10px;
     </select>
        
     </div>
+    </div>
+
+    <div>
     	<label class="col-sm-2 control-label">Entreprise</label>
    
   
@@ -97,6 +138,9 @@ border-radius:10px;
     </select>
        
     </div>
+    </div>
+
+    <div>
     <label class="col-sm-2 control-label">Département</label>
    
   
@@ -122,7 +166,7 @@ border-radius:10px;
     </select>
        
     </div>
-    
+    </div>
 	
 	<div id="div-center">
 		<div id="menu">
@@ -133,25 +177,43 @@ border-radius:10px;
 	
 		
 	</div>
+	<!-- Trigger the modal with a button -->
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Modal Header</h4>
+      </div>
+      <div class="modal-body" id="b">
+            <div id="map2"></div> 
+<span id="ccc"></span>
+               <table id="tab">
+               	
+               </table> 
+
+          
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
 	
 	
 	<script async defer
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDkeI-kIm4S1_WR2xFykRqK6XE7HIL_ew&callback=initMap">
 		
 	</script>
+
 	<div id="test"></div>
 
-	<p>
-
-        <?php echo $this->tag->linkTo(["acceuil/ConnectDB", "Connecte to DB"]);
-    
-
-   //$json = file_get_contents('http://localhost/GeoEntreprise/acceuil/ConnectDB');
-//echo $json ; 
-
-        ?>
-
-    </p>
     
 </body>
 </html>

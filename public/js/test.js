@@ -4,8 +4,9 @@ $(document).ready(function(){
     var directionsService ;
 
     var directionsDisplay;
-    
-
+    var infos;
+   
+   
     
     function init(){
     
@@ -53,6 +54,33 @@ $(document).ready(function(){
 
                     }
 
+
+  // modal Map
+  function init2(){
+    
+
+
+
+        map2 = new google.maps.Map(document.getElementById('map2'), {
+            zoom: 16,
+            center: new google.maps.LatLng(31.675905,-8.0473),
+        });
+       
+        
+
+          directionsService = new google.maps.DirectionsService();
+            directionsDisplay = new google.maps.DirectionsRenderer();
+        
+          /*connexion de la map + le panneau de l'itinéraire*/
+            directionsDisplay.setMap(map2);
+          
+
+        
+        
+
+                    }
+
+
      function all()
      {
             $.ajax({
@@ -73,7 +101,10 @@ $(document).ready(function(){
         
         init() ; 
     all() ; 
+    init2() ;
     }
+
+
      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
             infoWindow.setPosition(pos);
             infoWindow.setContent(browserHasGeolocation ?
@@ -84,12 +115,16 @@ $(document).ready(function(){
 
          
             function getMarkers(response)
+    
 
 {
                       
             var infoWindow = new google.maps.InfoWindow;
             var infowincontent = new Array();
             var marker = new Array();
+            var k;
+                
+            var tt= Array() ;
             var tab=new Array() ; 
             // pour recuperer tous les id_entreprise 
             for (var i = 0; i < response.length; i++) 
@@ -111,8 +146,9 @@ $(document).ready(function(){
                     var lat = response[i].altitude;
                     var lng = response[i].longitude;
                     var name =response[i].nom;
+                    console.log(name) ; 
                     var latLng = new google.maps.LatLng(lat,lng);
-                                            //var adress=response[i].adresse                               
+                 //var adress=response[i].adresse                               
            
 /*
 
@@ -120,26 +156,26 @@ $(document).ready(function(){
                     text.textContent = adress
                     infowincontent[i].appendChild(text);
 */
-                    
-                     
-                       
-                        
+    
                     var icon="P";
                     //Les info affichées en cliquent sur le mark
                     infowincontent[i] = document.createElement('div');
+                    infowincontent[i].style.height = "250px" ;
+                        infowincontent[i].style.overflow = "hidden" ;
 
                     var img = document.createElement("IMG");
                      img.src = "../../GeoEntreprise/public/img/"+d[i].image;
                      img.style.width = "350px";
-                       img.style.height = "150px";
+                       img.style.height = "140px";
                     var strong = document.createElement('strong');
                    
                      var text = document.createElement('text');
                   
                        
                            strong.textContent =d[i].nom+" ,"+name;
-      
-                   
+ tt[i]="<tr><td>Dénomination</td><td>"+d[i].denomination+"</td></tr><tr><td>Adresse</td><td>"+d[i].adresse+"</td></tr><tr><td>SIREN</td><td>"+d[i].siren+"</td></tr>"+
+ +"<tr><td>Ville</td><td>"+d[i].ville+"</td></tr><tr><td>Capital social</td><td>"+d[i].capital_social+"</td></tr><tr><td>Forme juridique</td><td>"+d[i].forme_juridique+"</td></tr>"+ 
+    +"<tr><td>Date de création</td><td>"+d[i].date_creation+"</td></tr><tr><td>Rayonnement</td><td>"+d[i].rayonnement+"</td></tr><tr><td>Chiffre d'affaire</td><td>"+d[i].CA+"</td></tr>" ;                
                            infowincontent[i].appendChild(img);
                            infowincontent[i].appendChild(document.createElement('br'));
                             infowincontent[i].appendChild(document.createElement('br'));
@@ -151,18 +187,60 @@ $(document).ready(function(){
                         
                          var img2 = document.createElement("IMG");
                      img2.src = "../../GeoEntreprise/public/img/localiser.jpg";
-                     img2.style.width = "10px";
-                       img2.style.height = "10px";
+                     img2.style.width = "20px";
+                       img2.style.height = "20px";
                     text.textContent = d[0].adresse  ;
                     infowincontent[i].appendChild(img2);
                     infowincontent[i].appendChild(text);
                    infowincontent[i].appendChild(document.createElement('br'));
                    infowincontent[i].appendChild(document.createElement('br'));
 
-                    var btn = document.createElement("BUTTON");        // Create a <button> element
+                    var btn = document.createElement("BUTTON");
+                   // btn.setAttribute("id", "btn_id"); 
+                   // $("#btn_id").attr("data-toggle", "modal");
+                     //$("#btn_id").attr("data-target", "#myModal");
+                     btn.addEventListener("click", function(){
+                         
+                           // initmap(lng,lat) ; 
+                              
+                           //init2() ;
+                            map2 = new google.maps.Map(document.getElementById('map2'), {
+                                zoom: 16,
+                              center: new google.maps.LatLng(response[m].altitude,response[m].longitude),
+                                  });
+                           marker2 = new google.maps.Marker({
+                        position:new google.maps.LatLng(response[m].altitude,response[m].longitude),
+                        map: map2,
+                        //label:'P',
+                        icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+                        
+                    });
+                      
+         
+
+                
+
+                      $("#tab").html(tt[m]);
+                       
+
+
+                      $('#myModal').modal('show'); 
+                      
+
+
+
+
+                  }); 
+
+
+                           // Create a <button> element
                      var t = document.createTextNode("Visualiser la fiche");
-                       //t.style.color="white"  ;
-                       //btn.style.color="blue" ;
+                       //t.style.color="#0000FF"  ;
+                       
+                       btn.setAttribute("STYLE","color:white");
+                        btn.style.backgroundColor = "#1E90FF";
+                        btn.style.borderColor = "#1E90FF";
+                         btn.style.borderRadius = "4px";
                   // Create a text node
                        btn.appendChild(t); 
                        infowincontent[i].appendChild(btn);
@@ -179,7 +257,10 @@ $(document).ready(function(){
                      marker[i].addListener('click', function() {
                             infoWindow.setContent(infowincontent[this.idMap]);
                             infoWindow.open(map, this);
+                            m= this.idMap; 
+                            
                           });
+                     
                              
                     
                 } 
