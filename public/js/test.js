@@ -1,32 +1,32 @@
 $(document).ready(function(){
 
 
-    var directionsService ;
+  var directionsService ;
 
-    var directionsDisplay;
-    var infos;
+  var directionsDisplay;
+  var infos;
    
    
+  
+  function init(){
+  
+
+
+
+    map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 16,
+      center: new google.maps.LatLng(31.675905,-8.0473),
+    });
+    var infoWindowo = new google.maps.InfoWindow({map: map});
     
-    function init(){
+
+      directionsService = new google.maps.DirectionsService();
+        directionsDisplay = new google.maps.DirectionsRenderer();
     
-
-
-
-        map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 16,
-            center: new google.maps.LatLng(31.675905,-8.0473),
-        });
-        var infoWindowo = new google.maps.InfoWindow({map: map});
-        
-
-          directionsService = new google.maps.DirectionsService();
-            directionsDisplay = new google.maps.DirectionsRenderer();
-        
-          /*connexion de la map + le panneau de l'itinéraire*/
-            directionsDisplay.setMap(map);
-          geocoder = new google.maps.Geocoder();
-        
+      /*connexion de la map + le panneau de l'itinéraire*/
+        directionsDisplay.setMap(map);
+      geocoder = new google.maps.Geocoder();
+    
 
         // Try HTML5 geolocation.
         if (navigator.geolocation) {
@@ -49,10 +49,10 @@ $(document).ready(function(){
           // Browser doesn't support Geolocation
           handleLocationError(false, infoWindowo, map.getCenter());
         }
-        
+    
         
 
-                    }
+          }
 
 
   // modal Map
@@ -83,49 +83,49 @@ $(document).ready(function(){
 
      function all()
      {
-            $.ajax({
+        $.ajax({
     type:"POST",
     url:"all/acceuil",
     dataType: 'json',
     
     success:function(data) {
-         getMarkers(data) ; 
+       getMarkers(data) ; 
     },
     error:function() {
         alert("error!");
     }
 });
      }
+  
+  window.initMap = function() {
     
-    window.initMap = function() {
-        
-        init() ; 
-    all() ; 
+    init() ; 
+  all() ; 
     init2() ;
-    }
+  }
 
 
-     function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-            infoWindow.setPosition(pos);
-            infoWindow.setContent(browserHasGeolocation ?
-                                  'Error: The Geolocation service failed.' :
-                                  'Error: Your browser doesn\'t support geolocation.');
-          }
+   function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+          infoWindow.setPosition(pos);
+          infoWindow.setContent(browserHasGeolocation ?
+                                'Error: The Geolocation service failed.' :
+                                'Error: Your browser doesn\'t support geolocation.');
+        }
 
 
-         
+       
             function getMarkers(response)
     
 
 {
                       
-            var infoWindow = new google.maps.InfoWindow;
-            var infowincontent = new Array();
-            var marker = new Array();
+        var infoWindow = new google.maps.InfoWindow;
+      var infowincontent = new Array();
+      var marker = new Array();
             var k;
                 
             var tt= Array() ;
-            var tab=new Array() ; 
+      var tab=new Array() ; 
             // pour recuperer tous les id_entreprise 
             for (var i = 0; i < response.length; i++) 
             {
@@ -266,13 +266,13 @@ $(document).ready(function(){
                 } 
                                     },
                               error:function() {
-                               alert("error!");
+                               alert("Aucune Entreprise!");
                                     }
                                 });
 
 
 
-                
+        
             } 
 
 
@@ -291,7 +291,7 @@ $('.s').on('change', function () {
 
          }
          else{
-            if(i=="all" && j!="all" && k=="all"){ // par domaine
+          if(i=="all" && j!="all" && k=="all"){ // par domaine
       $.ajax({
     type:"POST",
      data:({id:j}),

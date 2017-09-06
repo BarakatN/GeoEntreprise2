@@ -46,3 +46,100 @@ table.perms label {
 div.main-container {
 	min-height: 450px;
 }
+#n{
+	font-weight: bolder;
+    color: #548426 !important;
+    margin-right: 100px ; 
+}
+#logo{
+
+
+  width:60px ;
+  height:40px;
+
+}
+
+.d{
+        margin-top: 100px ; 
+        margin-left: 90px ; 
+	display: inline-block;
+}
+
+		
+		#div-center {
+			height: 550px  ; 
+			width: 100%;
+			margin-bottom: 0px ; 
+		}
+		
+	#map{
+			height: 340;
+			width: 600px;
+			display: inline-block;
+			float:left;
+			width:99%; 
+			height:80% ; 
+			margin-top: 10px ;
+			margin-left:5px ;  
+		    border:1px gray solid;
+            border-radius:10px;
+            -webkit-box-shadow:0 0 6px gray inset; 
+			
+		}
+
+   #b{
+           height:400px ;
+   }
+
+
+   .nass{
+
+           width:600px; 
+			height:500px ;
+            margin:0;
+              
+            
+               
+   }
+        #map2{
+           width:500px; 
+			height:250px ; 
+      margin-top: 6px ;
+      margin-bottom: 7px ; 
+			margin-left:40px ;  
+		    border:1px gray solid;
+            border-radius:10px;
+   }
+
+
+table{
+
+    margin-top: 30px ; 
+
+
+}
+		/* Optional: Makes the sample page fill the window. */
+		html, body {
+			height: 100%;
+			margin: 0;
+			padding: 0;
+			overflow: none ; 
+		}
+
+
+		.carousele{
+	margin-bottom: 60px;
+    margin-top: 100px;
+    margin-left:300px  ; 
+}
+
+.page div h3{
+	color:#548426
+}
+.page {
+	margin-top: 100px ; 
+	border-color:#548426 !important;
+	border-left: 7px solid #548426;
+	border-radius: 5px;
+}
+

@@ -1,0 +1,161 @@
+
+<?php 
+use GeoEntreprise\Models\Domaine;
+use GeoEntreprise\Models\Entreprise;
+use GeoEntreprise\Models\Departement;
+      ?>
+<html>
+ <head>
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script src="..\..\..\..\GeoEntreprise\public\js\jquery.min.js"></script>
+<script src="..\..\..\..\GeoEntreprise\public\js\test.js"></script>
+<link href="..\..\..\..\GeoEntreprise\public\css\bootstrap.min.css" rel="stylesheet">
+  <link href="..\..\..\..\GeoEntreprise\public\css\style.css"  rel="stylesheet">
+
+</head>
+<body>
+
+ <div  id="myNavbar" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+ <div class="container">
+    <div class="navbar-header">
+   <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+       <span class="icon-bar"></span>
+       <span class="icon-bar"></span>
+       <span class="icon-bar"></span>
+       <span class="icon-bar"></span>
+   </button>
+  
+  <a href="#" class="navbar-brand" id="n">GeoEntreprise</a> 
+ </div>
+  <div class="navbar-collapse collapse">
+    <ul class="nav navbar-nav navbar-right">
+       <li><?php echo $this->tag->linkTo(["acceuil", "Qui sommes-nous ?"]) ?></li>
+        <li><?php echo $this->tag->linkTo(["acceuil/localiser", "Localiser les entreprise"]) ?></li>
+         <li><a href="#">Contact</a></li>
+     </ul>
+     </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+   <div class="form-group d">
+	<label class="col-sm-2 control-label">Domaine</label>
+   
+  
+
+    <div class="col-sm-12">
+          <?php
+        $domaines=Domaine::find();  ?>       
+          <select id="domaine_id_domaine" class="form-control s"> 
+            <option value="all">Tous les domaines</option>
+<?php foreach($domaines as $d){ ?>
+                <option value="<?php echo $d->id_domaine;?>"><?php echo  $d->nom;     ?></option> 
+<?php } ?>
+    </select>
+       
+    </div>
+    </div>
+
+    <div class="form-group d">
+  <label class="col-sm-2 control-label">Entreprise</label>
+   
+  
+
+    <div class="col-sm-12">
+          <?php
+        $entreprises=Entreprise::find();  ?>       
+          <select id="id_entreprise" class="form-control s" > 
+            <option value="all">Tous les entreprises</option>
+<?php foreach($entreprises as $e){ ?>
+                <option value="<?php echo $e->id_entreprise;?>"><?php echo  $e->nom;     ?></option> 
+<?php } ?>
+    </select>
+       
+    </div>
+    </div>
+
+   <div class="form-group  d">
+  <label class="col-sm-2 control-label">Département</label>
+   
+  
+
+    <div class="col-sm-12" >
+          <?php
+          $tab=array();
+          
+        $departements=Departement::find(); 
+             foreach($departements as $e)
+        $tab[]=$e->libelle ; 
+      $t=array_unique($tab) ;
+             
+         ?>       
+          <select id="libelle"  class="form-control s" > 
+            <option value="all">Tous les departements</option>
+<?php foreach($t as $d){ 
+        
+          
+	?>
+                <option value="<?php echo $d;?>"><?php echo  $d;     ?></option> 
+<?php } ?>
+    </select>
+       
+    </div>
+    </div>
+	
+	<div id="div-center">
+		
+		<div id="map"></div>
+
+	
+		
+	</div>
+	<!-- Trigger the modal with a button -->
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog nass" >
+
+    <!-- Modal content-->
+    <div class="modal-content nass" id="content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Modal Header</h4>
+      </div>
+      <div class="modal-body" id="b">
+            <div id="map2"></div> 
+               <table id="tab"  class="table table-bordered">
+               	
+               </table> 
+
+          
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+	
+	
+	<script async defer
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDkeI-kIm4S1_WR2xFykRqK6XE7HIL_ew&callback=initMap">
+		
+	</script>
+
+
+
+    
+</body>
+</html>

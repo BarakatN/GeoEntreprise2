@@ -299,6 +299,12 @@ $temp = array();
 
 
     }
+      public function localiserAction()
+    {
+       
+   $this->view->pick('acceuil/localiser');
+
+    }
 
 
 
