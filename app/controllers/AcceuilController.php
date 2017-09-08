@@ -32,18 +32,7 @@ class AcceuilController extends ControllerBase
 
         
     }
-   public function ConnectDBAction()
-    {
-
-      $temp = array();
-        $etablissements=Etablissement::find();
-        foreach ($etablissements as $a) {
-    $temp[]=$a   ; 
- }
-        $this->view->setVar("etablissement" ,$etablissements) ; 
-           $this->view->setVar("data" ,json_encode($temp)) ;
-   $_SESSION['data'] = json_encode($temp);
-    } 
+ 
 
        public function search_by_domaineAction()
     {
@@ -303,6 +292,22 @@ $temp = array();
     {
        
    $this->view->pick('acceuil/localiser');
+
+    }
+       public function contactAction()
+    {
+       
+   $this->view->pick('acceuil/contact');
+
+    }
+
+         public function submitAction()
+    {
+       
+      $this->view->disable();
+
+
+   echo "done";
 
     }
 
